@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="{{url_for('static', filename='js/1.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+  </head>
+  <body>
+    <h1>AEC in code</h1>
+    <div class="container">
+      <div class="subcontainer"> Username : {{info.age}}</div>
+      <div class="subcontainer"> DOB : {{info.height}}</div>
+      <button id="btn">Click me</button>
+      <script>
+        
+        document.getElementById('btn').addEventListener('click', function() 
+        {
+          fetch('/update_db', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          json: JSON.stringify({
+           "Sahil": {
+              "age": 24,
+              "height": 1.72
+    }
+          })
+        })  
+          .then(response => response.json())
+          .then(data => {
+            let received = data;  // {"content: "some string"}
+
+            document.getElementById('btn').innerHTML = data["content"];
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+          
+        });
+      </script>
+    </div>
+    <div class="container" id="tag"></div>
+  </body>
+</html>

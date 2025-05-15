@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+  </head>
+  <body>
+    <h1>{{ name }}</h1>
+    <script src="{{url_for('static', filename='js/1.js')}}"></script>
+    <button id="btn">Click me</button>
+    <script>
+      document.getElementById('btn').addEventListener('click', function() {
+        fetch('/models/1', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })  
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            alert('Data received: ' + JSON.stringify(data));
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      });
+    </script>
+  </body>
+</html>
